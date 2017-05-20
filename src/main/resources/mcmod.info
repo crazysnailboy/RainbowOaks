@@ -1,0 +1,14 @@
+[{
+	"modid": "rainboaks",
+	"name": "Rainbow Oak Trees",
+	"description": "A standalone implementation of the Twilight Forest Rainbow Oak Tree",
+	"version": "${version}",
+	"mcversion": "${mcversion}",
+	"url": "https://github.com/crazysnailboy/RainbowOaks/releases/",
+	"updateUrl": "",
+	"authorList": ["csb987"],
+	"credits": "Benimatic for Twilight Forest and the original Rainbow Oak",
+	"logoFile": "",
+	"screenshots": [],
+	"dependencies": []
+}]

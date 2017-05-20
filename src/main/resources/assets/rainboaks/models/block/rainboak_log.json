@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "rainboaks:blocks/rainboak_log_top",
+        "side": "rainboaks:blocks/rainboak_log_side"
+    }
+}

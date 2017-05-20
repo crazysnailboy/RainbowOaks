@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "rainboaks:blocks/rainboak_log_side"
+    }
+}

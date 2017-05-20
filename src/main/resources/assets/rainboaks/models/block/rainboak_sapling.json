@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "rainboaks:blocks/rainboak_sapling"
+    }
+}
