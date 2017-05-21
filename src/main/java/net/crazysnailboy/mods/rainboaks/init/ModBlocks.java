@@ -1,8 +1,8 @@
 package net.crazysnailboy.mods.rainboaks.init;
 
-import net.crazysnailboy.mods.rainboaks.block.BlockTFLeaves;
-import net.crazysnailboy.mods.rainboaks.block.BlockTFLog;
-import net.crazysnailboy.mods.rainboaks.block.BlockTFSapling;
+import net.crazysnailboy.mods.rainboaks.block.BlockRainbowLeaves;
+import net.crazysnailboy.mods.rainboaks.block.BlockRainbowLog;
+import net.crazysnailboy.mods.rainboaks.block.BlockRainbowSapling;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -16,9 +16,9 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ModBlocks
 {
 
-	public static final Block LOG = new BlockTFLog().setRegistryName("rainboak_log").setUnlocalizedName("log.rainboak");
-	public static final Block LEAVES = new BlockTFLeaves().setRegistryName("rainboak_leaves").setUnlocalizedName("leaves.rainboak");
-	public static final Block SAPLING = new BlockTFSapling().setRegistryName("rainboak_sapling").setUnlocalizedName("sapling.rainboak");
+	public static final Block LOG = new BlockRainbowLog().setRegistryName("rainboak_log").setUnlocalizedName("log.rainboak");
+	public static final Block LEAVES = new BlockRainbowLeaves().setRegistryName("rainboak_leaves").setUnlocalizedName("leaves.rainboak");
+	public static final Block SAPLING = new BlockRainbowSapling().setRegistryName("rainboak_sapling").setUnlocalizedName("sapling.rainboak");
 
 	public static void registerBlocks()
 	{

@@ -7,10 +7,10 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 
-public class BlockTFLog extends BlockLog
+public class BlockRainbowLog extends BlockLog
 {
 
-	public BlockTFLog()
+	public BlockRainbowLog()
 	{
 		super();
 		this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));

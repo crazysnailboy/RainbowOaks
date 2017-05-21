@@ -30,9 +30,10 @@ public class ModBlockColors
 		registerItemColorHandlers(blockColors, itemColors);
 	}
 
+
 	private static void registerBlockColorHandlers(final BlockColors blockColors)
 	{
-		final IBlockColor leafColorHandler = new BlockColorTFLeaves();
+		final IBlockColor leafColorHandler = new BlockColorRainbowLeaves();
 		blockColors.registerBlockColorHandler(leafColorHandler, ModBlocks.LEAVES);
 	}
 
@@ -49,18 +50,11 @@ public class ModBlockColors
 			}
 		};
 
-
-//		// Use the Block's colour handler for an ItemBlock
-//		final IItemColor itemBlockColourHandler = (stack, tintIndex) -> {
-//			IBlockState iblockstate = ((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-//			return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);
-//		};
-//
 		itemColors.registerItemColorHandler(itemBlockColorHandler, ModBlocks.LEAVES);
 	}
 
 
-	public static class BlockColorTFLeaves implements IBlockColor
+	public static class BlockColorRainbowLeaves implements IBlockColor
 	{
 
 		@Override

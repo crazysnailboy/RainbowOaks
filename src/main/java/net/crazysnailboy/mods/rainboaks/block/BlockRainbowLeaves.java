@@ -19,10 +19,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockTFLeaves extends BlockLeaves
+public class BlockRainbowLeaves extends BlockLeaves
 {
 
-	public BlockTFLeaves()
+	public BlockRainbowLeaves()
 	{
 		super();
 //		this.setLightOpacity(2);
@@ -110,11 +110,11 @@ public class BlockTFLeaves extends BlockLeaves
 		return Blocks.LEAVES.isOpaqueCube(state);
 	}
 
-    @Override
+	@Override
 	@SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	{
 		return Blocks.LEAVES.shouldSideBeRendered(blockState, blockAccess, pos, side);
-    }
+	}
 
 }

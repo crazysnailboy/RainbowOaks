@@ -2,8 +2,8 @@ package net.crazysnailboy.mods.rainboaks.block;
 
 import java.util.Random;
 import net.crazysnailboy.mods.rainboaks.common.config.ModConfiguration;
-import net.crazysnailboy.mods.rainboaks.world.gen.feature.TFGenLargeRainboak;
-import net.crazysnailboy.mods.rainboaks.world.gen.feature.TFGenSmallRainboak;
+import net.crazysnailboy.mods.rainboaks.world.gen.feature.WorldGenLargeRainbowTree;
+import net.crazysnailboy.mods.rainboaks.world.gen.feature.WorldGenSmallRainbowTree;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
@@ -18,17 +18,17 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class BlockTFSapling extends BlockBush implements IGrowable
+public class BlockRainbowSapling extends BlockBush implements IGrowable
 {
 
 	public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
 	protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0.0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
-	public BlockTFSapling()
+	public BlockRainbowSapling()
 	{
 		super();
 		this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
-        this.setCreativeTab(CreativeTabs.DECORATIONS);
+		this.setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class BlockTFSapling extends BlockBush implements IGrowable
 	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
 		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
-		WorldGenerator worldgenerator = (WorldGenerator)(rand.nextInt(ModConfiguration.largeTreeChance) == 0 ? new TFGenLargeRainboak(true) : new TFGenSmallRainboak(true));
+		WorldGenerator worldgenerator = (WorldGenerator)(rand.nextInt(ModConfiguration.largeTreeChance) == 0 ? new WorldGenLargeRainbowTree(true) : new WorldGenSmallRainbowTree(true));
 		int i = 0;
 		int j = 0;
 		boolean largeTree = false;

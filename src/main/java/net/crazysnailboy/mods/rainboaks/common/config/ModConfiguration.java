@@ -35,7 +35,7 @@ public class ModConfiguration
 		// get the configuration properties
 		Property propLargeTreeChance = config.get(Configuration.CATEGORY_GENERAL, "largeTreeChance", largeTreeChance, "Chance of getting a large tree from a sapling. The higher the number, the lower the probability.\nDefault is 7.");
 
-		config.addCustomCategoryComment(CATEGORY_WORLDGEN, "See ??? for a list of biome names");
+		config.addCustomCategoryComment(CATEGORY_WORLDGEN, "See https://github.com/crazysnailboy/RainbowOaks/wiki/List-of-Vanilla-Biomes for a list of biome names");
 		Property propAddToWorldGen = config.get(CATEGORY_WORLDGEN, "addToWorldGen", addToWorldGen, "Should trees appear naturally in the world.\nDefault is true.");
 		Property propTreesPerChunk = config.get(CATEGORY_WORLDGEN, "treesPerChunk", treesPerChunk, "Number of trees per chunk.\nDefault is 0.2.");
 		Property propBiomeList = config.get(CATEGORY_WORLDGEN, "biomeList", biomeList, "List of biomes trees should generate in.\nDefault is \"minecraft:mutated_forest\" (Flower Forests).");

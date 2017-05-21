@@ -17,11 +17,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ModLootTables
 {
 
-	public static final ResourceLocation LOOT_TABLE_TEST = new ResourceLocation(RainboaksMod.MODID, "loot_table_rainboak");
+	public static final ResourceLocation LOOT_TABLE_RAINBOAK = new ResourceLocation(RainboaksMod.MODID, "loot_table_rainboak");
 
 	public static void registerLootTables()
 	{
-		LootTableList.register(LOOT_TABLE_TEST);
+		LootTableList.register(LOOT_TABLE_RAINBOAK);
 	}
 
 
@@ -33,9 +33,9 @@ public class ModLootTables
 		{
 			if (ModConfiguration.addToLootTables && ArrayUtils.contains(ModConfiguration.lootTableList, event.getName().toString()))
 			{
-				final String name = ModLootTables.LOOT_TABLE_TEST.toString();
+				final String name = ModLootTables.LOOT_TABLE_RAINBOAK.toString();
 
-				final LootEntry entry = new LootEntryTable(ModLootTables.LOOT_TABLE_TEST, 1, 0, new LootCondition[0], name);
+				final LootEntry entry = new LootEntryTable(ModLootTables.LOOT_TABLE_RAINBOAK, 1, 0, new LootCondition[0], name);
 				final RandomValueRange rolls = new RandomValueRange(0, 1);
 				final LootPool pool = new LootPool(new LootEntry[]{entry}, new LootCondition[0], rolls, rolls, name);
 

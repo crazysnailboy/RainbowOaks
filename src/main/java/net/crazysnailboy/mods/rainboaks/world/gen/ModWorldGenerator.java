@@ -3,8 +3,8 @@ package net.crazysnailboy.mods.rainboaks.world.gen;
 import java.util.Random;
 import org.apache.commons.lang3.ArrayUtils;
 import net.crazysnailboy.mods.rainboaks.common.config.ModConfiguration;
-import net.crazysnailboy.mods.rainboaks.world.gen.feature.TFGenLargeRainboak;
-import net.crazysnailboy.mods.rainboaks.world.gen.feature.TFGenSmallRainboak;
+import net.crazysnailboy.mods.rainboaks.world.gen.feature.WorldGenLargeRainbowTree;
+import net.crazysnailboy.mods.rainboaks.world.gen.feature.WorldGenSmallRainbowTree;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -39,8 +39,8 @@ public class ModWorldGenerator implements IWorldGenerator
 
 	private void generateOverworld(World world, Random rand, int blockX, int blockZ)
 	{
-		WorldGenerator largeTree = new TFGenLargeRainboak(true);
-		WorldGenerator smallTree = new TFGenSmallRainboak(true);
+		WorldGenerator largeTree = new WorldGenLargeRainbowTree(true);
+		WorldGenerator smallTree = new WorldGenSmallRainbowTree(true);
 
 		Biome biome = world.getBiomeForCoordsBody(new BlockPos(blockX, 64, blockZ));
 

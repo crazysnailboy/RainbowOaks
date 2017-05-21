@@ -14,7 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
-public class TFGenLargeRainboak extends WorldGenAbstractTree
+public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 {
 	private Random rand;
 	private World world;
@@ -29,12 +29,12 @@ public class TFGenLargeRainboak extends WorldGenAbstractTree
 	int heightLimitLimit = 12;
 	/** Sets the distance limit for how far away the generator will populate leaves from the base leaf node. */
 	int leafDistanceLimit = 4;
-	List<TFGenLargeRainboak.FoliageCoordinates> foliageCoords;
+	List<WorldGenLargeRainbowTree.FoliageCoordinates> foliageCoords;
 
-	public TFGenLargeRainboak(boolean notify)
-    {
-        super(notify);
-    }
+	public WorldGenLargeRainbowTree(boolean notify)
+	{
+		super(notify);
+	}
 
 	/**
 	 * Generates a list of leaf nodes for the tree, to be populated by generateLeaves.
@@ -57,8 +57,8 @@ public class TFGenLargeRainboak extends WorldGenAbstractTree
 
 		int j = this.basePos.getY() + this.height;
 		int k = this.heightLimit - this.leafDistanceLimit;
-		this.foliageCoords = Lists.<TFGenLargeRainboak.FoliageCoordinates>newArrayList();
-		this.foliageCoords.add(new TFGenLargeRainboak.FoliageCoordinates(this.basePos.up(k), j));
+		this.foliageCoords = Lists.<WorldGenLargeRainbowTree.FoliageCoordinates>newArrayList();
+		this.foliageCoords.add(new WorldGenLargeRainbowTree.FoliageCoordinates(this.basePos.up(k), j));
 
 		for (; k >= 0; --k)
 		{
@@ -85,7 +85,7 @@ public class TFGenLargeRainboak extends WorldGenAbstractTree
 
 						if (this.checkBlockLine(blockpos2, blockpos) == -1)
 						{
-							this.foliageCoords.add(new TFGenLargeRainboak.FoliageCoordinates(blockpos, blockpos2.getY()));
+							this.foliageCoords.add(new WorldGenLargeRainbowTree.FoliageCoordinates(blockpos, blockpos2.getY()));
 						}
 					}
 				}
@@ -213,7 +213,7 @@ public class TFGenLargeRainboak extends WorldGenAbstractTree
 	 */
 	void generateLeaves()
 	{
-		for (TFGenLargeRainboak.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.foliageCoords)
+		for (WorldGenLargeRainbowTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.foliageCoords)
 		{
 			this.generateLeafNode(worldgenbigtree$foliagecoordinates);
 		}
@@ -251,7 +251,7 @@ public class TFGenLargeRainboak extends WorldGenAbstractTree
 	 */
 	void generateLeafNodeBases()
 	{
-		for (TFGenLargeRainboak.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.foliageCoords)
+		for (WorldGenLargeRainbowTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.foliageCoords)
 		{
 			int i = worldgenbigtree$foliagecoordinates.getBranchBase();
 			BlockPos blockpos = new BlockPos(this.basePos.getX(), i, this.basePos.getZ());
