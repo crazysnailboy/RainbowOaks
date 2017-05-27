@@ -13,16 +13,16 @@ public class CommonProxy
 
 	public void preInit()
 	{
-		initializeConfiguration();
-		registerBlocks();
-		registerLootTables();
+		this.initializeConfiguration();
+		this.registerBlocks();
+		this.registerLootTables();
 	}
 
 	public void init()
 	{
-		registerOreDictionaryEntries();
-		registerCraftingRecipes();
-		registerWorldGenerator();
+		this.registerOreDictionaryEntries();
+		this.registerCraftingRecipes();
+		this.registerWorldGenerator();
 	}
 
 	public void postInit()

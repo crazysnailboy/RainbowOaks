@@ -30,46 +30,46 @@ public class WorldGenSmallRainbowTree extends WorldGenAbstractTree
 		this(p_i2027_1_, 4, DEFAULT_TRUNK, DEFAULT_LEAF, false);
 	}
 
-	public WorldGenSmallRainbowTree(boolean p_i46446_1_, int p_i46446_2_, IBlockState p_i46446_3_, IBlockState p_i46446_4_, boolean p_i46446_5_)
+	public WorldGenSmallRainbowTree(boolean notify, int minTreeHeight, IBlockState metaWood, IBlockState metaLeaves, boolean vinesGrow)
 	{
-		super(p_i46446_1_);
-		this.minTreeHeight = p_i46446_2_;
-		this.metaWood = p_i46446_3_;
-		this.metaLeaves = p_i46446_4_;
-		this.vinesGrow = p_i46446_5_;
+		super(notify);
+		this.minTreeHeight = minTreeHeight;
+		this.metaWood = metaWood;
+		this.metaLeaves = metaLeaves;
+		this.vinesGrow = vinesGrow;
 	}
 
 	@Override
-	public boolean generate(World worldIn, Random rand, BlockPos position)
+	public boolean generate(World world, Random rand, BlockPos pos)
 	{
 		int i = rand.nextInt(3) + this.minTreeHeight;
 		boolean flag = true;
 
-		if (position.getY() >= 1 && position.getY() + i + 1 <= worldIn.getHeight())
+		if (pos.getY() >= 1 && pos.getY() + i + 1 <= world.getHeight())
 		{
-			for (int j = position.getY(); j <= position.getY() + 1 + i; ++j)
+			for (int j = pos.getY(); j <= pos.getY() + 1 + i; ++j)
 			{
 				int k = 1;
 
-				if (j == position.getY())
+				if (j == pos.getY())
 				{
 					k = 0;
 				}
 
-				if (j >= position.getY() + 1 + i - 2)
+				if (j >= pos.getY() + 1 + i - 2)
 				{
 					k = 2;
 				}
 
 				BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-				for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l)
+				for (int l = pos.getX() - k; l <= pos.getX() + k && flag; ++l)
 				{
-					for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1)
+					for (int i1 = pos.getZ() - k; i1 <= pos.getZ() + k && flag; ++i1)
 					{
-						if (j >= 0 && j < worldIn.getHeight())
+						if (j >= 0 && j < world.getHeight())
 						{
-							if (!this.isReplaceable(worldIn,blockpos$mutableblockpos.setPos(l, j, i1)))
+							if (!this.isReplaceable(world,blockpos$mutableblockpos.setPos(l, j, i1)))
 							{
 								flag = false;
 							}
@@ -88,35 +88,35 @@ public class WorldGenSmallRainbowTree extends WorldGenAbstractTree
 			}
 			else
 			{
-				IBlockState state = worldIn.getBlockState(position.down());
+				IBlockState state = world.getBlockState(pos.down());
 
-				if (state.getBlock().canSustainPlant(state, worldIn, position.down(), net.minecraft.util.EnumFacing.UP, (net.minecraft.block.BlockSapling)Blocks.SAPLING) && position.getY() < worldIn.getHeight() - i - 1)
+				if (state.getBlock().canSustainPlant(state, world, pos.down(), net.minecraft.util.EnumFacing.UP, (net.minecraft.block.BlockSapling)Blocks.SAPLING) && pos.getY() < world.getHeight() - i - 1)
 				{
-					this.setDirtAt(worldIn, position.down());
+					this.setDirtAt(world, pos.down());
 					int k2 = 3;
 					int l2 = 0;
 
-					for (int i3 = position.getY() - 3 + i; i3 <= position.getY() + i; ++i3)
+					for (int i3 = pos.getY() - 3 + i; i3 <= pos.getY() + i; ++i3)
 					{
-						int i4 = i3 - (position.getY() + i);
+						int i4 = i3 - (pos.getY() + i);
 						int j1 = 1 - i4 / 2;
 
-						for (int k1 = position.getX() - j1; k1 <= position.getX() + j1; ++k1)
+						for (int k1 = pos.getX() - j1; k1 <= pos.getX() + j1; ++k1)
 						{
-							int l1 = k1 - position.getX();
+							int l1 = k1 - pos.getX();
 
-							for (int i2 = position.getZ() - j1; i2 <= position.getZ() + j1; ++i2)
+							for (int i2 = pos.getZ() - j1; i2 <= pos.getZ() + j1; ++i2)
 							{
-								int j2 = i2 - position.getZ();
+								int j2 = i2 - pos.getZ();
 
 								if (Math.abs(l1) != j1 || Math.abs(j2) != j1 || rand.nextInt(2) != 0 && i4 != 0)
 								{
 									BlockPos blockpos = new BlockPos(k1, i3, i2);
-									state = worldIn.getBlockState(blockpos);
+									state = world.getBlockState(blockpos);
 
-									if (state.getBlock().isAir(state, worldIn, blockpos) || state.getBlock().isLeaves(state, worldIn, blockpos) || state.getMaterial() == Material.VINE)
+									if (state.getBlock().isAir(state, world, blockpos) || state.getBlock().isLeaves(state, world, blockpos) || state.getMaterial() == Material.VINE)
 									{
-										this.setBlockAndNotifyAdequately(worldIn, blockpos, this.metaLeaves);
+										this.setBlockAndNotifyAdequately(world, blockpos, this.metaLeaves);
 									}
 								}
 							}
@@ -125,33 +125,33 @@ public class WorldGenSmallRainbowTree extends WorldGenAbstractTree
 
 					for (int j3 = 0; j3 < i; ++j3)
 					{
-						BlockPos upN = position.up(j3);
-						state = worldIn.getBlockState(upN);
+						BlockPos upN = pos.up(j3);
+						state = world.getBlockState(upN);
 
-						if (state.getBlock().isAir(state, worldIn, upN) || state.getBlock().isLeaves(state, worldIn, upN) || state.getMaterial() == Material.VINE)
+						if (state.getBlock().isAir(state, world, upN) || state.getBlock().isLeaves(state, world, upN) || state.getMaterial() == Material.VINE)
 						{
-							this.setBlockAndNotifyAdequately(worldIn, position.up(j3), this.metaWood);
+							this.setBlockAndNotifyAdequately(world, pos.up(j3), this.metaWood);
 
 							if (this.vinesGrow && j3 > 0)
 							{
-								if (rand.nextInt(3) > 0 && worldIn.isAirBlock(position.add(-1, j3, 0)))
+								if (rand.nextInt(3) > 0 && world.isAirBlock(pos.add(-1, j3, 0)))
 								{
-									this.addVine(worldIn, position.add(-1, j3, 0), BlockVine.EAST);
+									this.addVine(world, pos.add(-1, j3, 0), BlockVine.EAST);
 								}
 
-								if (rand.nextInt(3) > 0 && worldIn.isAirBlock(position.add(1, j3, 0)))
+								if (rand.nextInt(3) > 0 && world.isAirBlock(pos.add(1, j3, 0)))
 								{
-									this.addVine(worldIn, position.add(1, j3, 0), BlockVine.WEST);
+									this.addVine(world, pos.add(1, j3, 0), BlockVine.WEST);
 								}
 
-								if (rand.nextInt(3) > 0 && worldIn.isAirBlock(position.add(0, j3, -1)))
+								if (rand.nextInt(3) > 0 && world.isAirBlock(pos.add(0, j3, -1)))
 								{
-									this.addVine(worldIn, position.add(0, j3, -1), BlockVine.SOUTH);
+									this.addVine(world, pos.add(0, j3, -1), BlockVine.SOUTH);
 								}
 
-								if (rand.nextInt(3) > 0 && worldIn.isAirBlock(position.add(0, j3, 1)))
+								if (rand.nextInt(3) > 0 && world.isAirBlock(pos.add(0, j3, 1)))
 								{
-									this.addVine(worldIn, position.add(0, j3, 1), BlockVine.NORTH);
+									this.addVine(world, pos.add(0, j3, 1), BlockVine.NORTH);
 								}
 							}
 						}
@@ -159,44 +159,44 @@ public class WorldGenSmallRainbowTree extends WorldGenAbstractTree
 
 					if (this.vinesGrow)
 					{
-						for (int k3 = position.getY() - 3 + i; k3 <= position.getY() + i; ++k3)
+						for (int k3 = pos.getY() - 3 + i; k3 <= pos.getY() + i; ++k3)
 						{
-							int j4 = k3 - (position.getY() + i);
+							int j4 = k3 - (pos.getY() + i);
 							int k4 = 2 - j4 / 2;
 							BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();
 
-							for (int l4 = position.getX() - k4; l4 <= position.getX() + k4; ++l4)
+							for (int l4 = pos.getX() - k4; l4 <= pos.getX() + k4; ++l4)
 							{
-								for (int i5 = position.getZ() - k4; i5 <= position.getZ() + k4; ++i5)
+								for (int i5 = pos.getZ() - k4; i5 <= pos.getZ() + k4; ++i5)
 								{
 									blockpos$mutableblockpos1.setPos(l4, k3, i5);
 
-									state = worldIn.getBlockState(blockpos$mutableblockpos1);
-									if (state.getBlock().isLeaves(state, worldIn, blockpos$mutableblockpos1))
+									state = world.getBlockState(blockpos$mutableblockpos1);
+									if (state.getBlock().isLeaves(state, world, blockpos$mutableblockpos1))
 									{
 										BlockPos blockpos2 = blockpos$mutableblockpos1.west();
 										BlockPos blockpos3 = blockpos$mutableblockpos1.east();
 										BlockPos blockpos4 = blockpos$mutableblockpos1.north();
 										BlockPos blockpos1 = blockpos$mutableblockpos1.south();
 
-										if (rand.nextInt(4) == 0 && worldIn.isAirBlock(blockpos2))
+										if (rand.nextInt(4) == 0 && world.isAirBlock(blockpos2))
 										{
-											this.addHangingVine(worldIn, blockpos2, BlockVine.EAST);
+											this.addHangingVine(world, blockpos2, BlockVine.EAST);
 										}
 
-										if (rand.nextInt(4) == 0 && worldIn.isAirBlock(blockpos3))
+										if (rand.nextInt(4) == 0 && world.isAirBlock(blockpos3))
 										{
-											this.addHangingVine(worldIn, blockpos3, BlockVine.WEST);
+											this.addHangingVine(world, blockpos3, BlockVine.WEST);
 										}
 
-										if (rand.nextInt(4) == 0 && worldIn.isAirBlock(blockpos4))
+										if (rand.nextInt(4) == 0 && world.isAirBlock(blockpos4))
 										{
-											this.addHangingVine(worldIn, blockpos4, BlockVine.SOUTH);
+											this.addHangingVine(world, blockpos4, BlockVine.SOUTH);
 										}
 
-										if (rand.nextInt(4) == 0 && worldIn.isAirBlock(blockpos1))
+										if (rand.nextInt(4) == 0 && world.isAirBlock(blockpos1))
 										{
-											this.addHangingVine(worldIn, blockpos1, BlockVine.NORTH);
+											this.addHangingVine(world, blockpos1, BlockVine.NORTH);
 										}
 									}
 								}

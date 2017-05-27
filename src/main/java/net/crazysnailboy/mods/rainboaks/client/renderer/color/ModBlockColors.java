@@ -33,24 +33,23 @@ public class ModBlockColors
 
 	private static void registerBlockColorHandlers(final BlockColors blockColors)
 	{
-		final IBlockColor leafColorHandler = new BlockColorRainbowLeaves();
-		blockColors.registerBlockColorHandler(leafColorHandler, ModBlocks.LEAVES);
+		final IBlockColor blockColor = new BlockColorRainbowLeaves();
+		blockColors.registerBlockColorHandler(blockColor, ModBlocks.LEAVES);
 	}
 
 	private static void registerItemColorHandlers(final BlockColors blockColors, final ItemColors itemColors)
 	{
-		final IItemColor itemBlockColorHandler = new IItemColor(){
-
+		final IItemColor itemColor = new IItemColor()
+		{
 			@SuppressWarnings("deprecation")
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex)
 			{
-				IBlockState iblockstate = ((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-				return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);
+				IBlockState state = ((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+				return blockColors.colorMultiplier(state, null, null, tintIndex);
 			}
 		};
-
-		itemColors.registerItemColorHandler(itemBlockColorHandler, ModBlocks.LEAVES);
+		itemColors.registerItemColorHandler(itemColor, ModBlocks.LEAVES);
 	}
 
 
@@ -102,10 +101,7 @@ public class ModBlockColors
 
 				return red << 16 | blue << 8 | green;
 			}
-			else
-			{
-				return ColorizerFoliage.getFoliageColorBasic();
-			}
+			else return ColorizerFoliage.getFoliageColorBasic();
 		}
 
 	}

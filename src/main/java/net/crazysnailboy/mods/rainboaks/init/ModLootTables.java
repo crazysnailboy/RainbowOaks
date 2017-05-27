@@ -42,9 +42,6 @@ public class ModLootTables
 				event.getTable().addPool(pool);
 			}
 		}
-
-
 	}
-
 
 }

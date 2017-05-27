@@ -16,8 +16,8 @@ public class ClientProxy extends CommonProxy
 	public void init()
 	{
 		super.init();
-		registerInventoryModels();
-		registerColorHandlers();
+		this.registerInventoryModels();
+		this.registerColorHandlers();
 	}
 
 	@Override

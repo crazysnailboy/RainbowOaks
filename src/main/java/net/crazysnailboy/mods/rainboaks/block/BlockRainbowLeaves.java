@@ -25,7 +25,6 @@ public class BlockRainbowLeaves extends BlockLeaves
 	public BlockRainbowLeaves()
 	{
 		super();
-//		this.setLightOpacity(2);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
 	}
 
@@ -46,25 +45,16 @@ public class BlockRainbowLeaves extends BlockLeaves
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		int i = 0;
-
-		if (!((Boolean)state.getValue(DECAYABLE)).booleanValue())
-		{
-			i |= 4;
-		}
-
-		if (((Boolean)state.getValue(CHECK_DECAY)).booleanValue())
-		{
-			i |= 8;
-		}
-
-		return i;
+		int meta = 0;
+		if (!((Boolean)state.getValue(DECAYABLE)).booleanValue()) meta |= 4;
+		if (((Boolean)state.getValue(CHECK_DECAY)).booleanValue()) meta |= 8;
+		return meta;
 	}
 
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[] {CHECK_DECAY, DECAYABLE});
+		return new BlockStateContainer(this, new IProperty[] { CHECK_DECAY, DECAYABLE });
 	}
 
 	@Override

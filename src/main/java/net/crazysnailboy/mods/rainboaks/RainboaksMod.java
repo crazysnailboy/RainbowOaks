@@ -36,13 +36,13 @@ public class RainboaksMod
 	}
 
 	@EventHandler
-	public void load(FMLInitializationEvent evt)
+	public void load(FMLInitializationEvent event)
 	{
 		proxy.init();
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent evt)
+	public void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit();
 	}

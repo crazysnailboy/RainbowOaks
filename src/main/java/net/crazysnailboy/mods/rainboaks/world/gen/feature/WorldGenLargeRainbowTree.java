@@ -93,22 +93,22 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 		}
 	}
 
-	void crosSection(BlockPos pos, float p_181631_2_, IBlockState p_181631_3_)
+	void crosSection(BlockPos pos, float leafSize, IBlockState leafState)
 	{
-		int i = (int)((double)p_181631_2_ + 0.618D);
+		int i = (int)((double)leafSize + 0.618D);
 
 		for (int j = -i; j <= i; ++j)
 		{
 			for (int k = -i; k <= i; ++k)
 			{
-				if (Math.pow((double)Math.abs(j) + 0.5D, 2.0D) + Math.pow((double)Math.abs(k) + 0.5D, 2.0D) <= (double)(p_181631_2_ * p_181631_2_))
+				if (Math.pow((double)Math.abs(j) + 0.5D, 2.0D) + Math.pow((double)Math.abs(k) + 0.5D, 2.0D) <= (double)(leafSize * leafSize))
 				{
 					BlockPos blockpos = pos.add(j, 0, k);
 					IBlockState state = this.world.getBlockState(blockpos);
 
 					if (state.getBlock().isAir(state, world, blockpos) || state.getBlock().isLeaves(state, world, blockpos))
 					{
-						this.setBlockAndNotifyAdequately(this.world, blockpos, p_181631_3_);
+						this.setBlockAndNotifyAdequately(this.world, blockpos, leafState);
 					}
 				}
 			}
@@ -159,53 +159,53 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 		}
 	}
 
-	void limb(BlockPos p_175937_1_, BlockPos p_175937_2_, Block p_175937_3_)
+	void limb(BlockPos pos1, BlockPos pos2, Block block)
 	{
-		BlockPos blockpos = p_175937_2_.add(-p_175937_1_.getX(), -p_175937_1_.getY(), -p_175937_1_.getZ());
-		int i = this.getGreatestDistance(blockpos);
-		float f = (float)blockpos.getX() / (float)i;
-		float f1 = (float)blockpos.getY() / (float)i;
-		float f2 = (float)blockpos.getZ() / (float)i;
+		BlockPos pos3 = pos2.add(-pos1.getX(), -pos1.getY(), -pos1.getZ());
+		int i = this.getGreatestDistance(pos3);
+		float f = (float)pos3.getX() / (float)i;
+		float f1 = (float)pos3.getY() / (float)i;
+		float f2 = (float)pos3.getZ() / (float)i;
 
 		for (int j = 0; j <= i; ++j)
 		{
-			BlockPos blockpos1 = p_175937_1_.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
-			BlockLog.EnumAxis blocklog$enumaxis = this.getLogAxis(p_175937_1_, blockpos1);
-			this.setBlockAndNotifyAdequately(this.world, blockpos1, p_175937_3_.getDefaultState().withProperty(BlockLog.LOG_AXIS, blocklog$enumaxis));
+			BlockPos pos4 = pos1.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
+			BlockLog.EnumAxis axis = this.getLogAxis(pos1, pos4);
+			this.setBlockAndNotifyAdequately(this.world, pos4, block.getDefaultState().withProperty(BlockLog.LOG_AXIS, axis));
 		}
 	}
 
 	/**
 	 * Returns the absolute greatest distance in the BlockPos object.
 	 */
-	private int getGreatestDistance(BlockPos posIn)
+	private int getGreatestDistance(BlockPos pos)
 	{
-		int i = MathHelper.abs(posIn.getX());
-		int j = MathHelper.abs(posIn.getY());
-		int k = MathHelper.abs(posIn.getZ());
+		int i = MathHelper.abs(pos.getX());
+		int j = MathHelper.abs(pos.getY());
+		int k = MathHelper.abs(pos.getZ());
 		return k > i && k > j ? k : (j > i ? j : i);
 	}
 
-	private BlockLog.EnumAxis getLogAxis(BlockPos p_175938_1_, BlockPos p_175938_2_)
+	private BlockLog.EnumAxis getLogAxis(BlockPos pos1, BlockPos pos2)
 	{
-		BlockLog.EnumAxis blocklog$enumaxis = BlockLog.EnumAxis.Y;
-		int i = Math.abs(p_175938_2_.getX() - p_175938_1_.getX());
-		int j = Math.abs(p_175938_2_.getZ() - p_175938_1_.getZ());
+		BlockLog.EnumAxis axis = BlockLog.EnumAxis.Y;
+		int i = Math.abs(pos2.getX() - pos1.getX());
+		int j = Math.abs(pos2.getZ() - pos1.getZ());
 		int k = Math.max(i, j);
 
 		if (k > 0)
 		{
 			if (i == k)
 			{
-				blocklog$enumaxis = BlockLog.EnumAxis.X;
+				axis = BlockLog.EnumAxis.X;
 			}
 			else if (j == k)
 			{
-				blocklog$enumaxis = BlockLog.EnumAxis.Z;
+				axis = BlockLog.EnumAxis.Z;
 			}
 		}
 
-		return blocklog$enumaxis;
+		return axis;
 	}
 
 	/**
@@ -222,9 +222,9 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 	/**
 	 * Indicates whether or not a leaf node requires additional wood to be added to preserve integrity.
 	 */
-	boolean leafNodeNeedsBase(int p_76493_1_)
+	boolean leafNodeNeedsBase(int posY)
 	{
-		return (double)p_76493_1_ >= (double)this.heightLimit * 0.2D;
+		return (double)posY >= (double)this.heightLimit * 0.2D;
 	}
 
 	/**
@@ -251,14 +251,14 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 	 */
 	void generateLeafNodeBases()
 	{
-		for (WorldGenLargeRainbowTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.foliageCoords)
+		for (WorldGenLargeRainbowTree.FoliageCoordinates pos : this.foliageCoords)
 		{
-			int i = worldgenbigtree$foliagecoordinates.getBranchBase();
+			int i = pos.getBranchBase();
 			BlockPos blockpos = new BlockPos(this.basePos.getX(), i, this.basePos.getZ());
 
-			if (!blockpos.equals(worldgenbigtree$foliagecoordinates) && this.leafNodeNeedsBase(i - this.basePos.getY()))
+			if (!blockpos.equals(pos) && this.leafNodeNeedsBase(i - this.basePos.getY()))
 			{
-				this.limb(blockpos, worldgenbigtree$foliagecoordinates, ModBlocks.LOG);
+				this.limb(blockpos, pos, ModBlocks.LOG);
 			}
 		}
 	}
@@ -267,13 +267,13 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 	 * Checks a line of blocks in the world from the first coordinate to triplet to the second, returning the distance
 	 * (in blocks) before a non-air, non-leaf block is encountered and/or the end is encountered.
 	 */
-	int checkBlockLine(BlockPos posOne, BlockPos posTwo)
+	int checkBlockLine(BlockPos pos1, BlockPos pos2)
 	{
-		BlockPos blockpos = posTwo.add(-posOne.getX(), -posOne.getY(), -posOne.getZ());
-		int i = this.getGreatestDistance(blockpos);
-		float f = (float)blockpos.getX() / (float)i;
-		float f1 = (float)blockpos.getY() / (float)i;
-		float f2 = (float)blockpos.getZ() / (float)i;
+		BlockPos pos3 = pos2.add(-pos1.getX(), -pos1.getY(), -pos1.getZ());
+		int i = this.getGreatestDistance(pos3);
+		float f = (float)pos3.getX() / (float)i;
+		float f1 = (float)pos3.getY() / (float)i;
+		float f2 = (float)pos3.getZ() / (float)i;
 
 		if (i == 0)
 		{
@@ -283,9 +283,9 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 		{
 			for (int j = 0; j <= i; ++j)
 			{
-				BlockPos blockpos1 = posOne.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
+				BlockPos pos4 = pos1.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
 
-				if (!this.isReplaceable(world, blockpos1))
+				if (!this.isReplaceable(world, pos4))
 				{
 					return j;
 				}
@@ -302,10 +302,10 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 	}
 
 	@Override
-	public boolean generate(World worldIn, Random rand, BlockPos position)
+	public boolean generate(World world, Random rand, BlockPos pos)
 	{
-		this.world = worldIn;
-		this.basePos = position;
+		this.world = world;
+		this.basePos = pos;
 		this.rand = new Random(rand.nextLong());
 
 		if (this.heightLimit == 0)
@@ -367,10 +367,10 @@ public class WorldGenLargeRainbowTree extends WorldGenAbstractTree
 	{
 		private final int branchBase;
 
-		public FoliageCoordinates(BlockPos pos, int p_i45635_2_)
+		public FoliageCoordinates(BlockPos pos, int branchBase)
 		{
 			super(pos.getX(), pos.getY(), pos.getZ());
-			this.branchBase = p_i45635_2_;
+			this.branchBase = branchBase;
 		}
 
 		public int getBranchBase()

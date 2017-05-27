@@ -6,6 +6,7 @@ import net.crazysnailboy.mods.rainboaks.world.gen.feature.WorldGenLargeRainbowTr
 import net.crazysnailboy.mods.rainboaks.world.gen.feature.WorldGenSmallRainbowTree;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -28,6 +29,8 @@ public class BlockRainbowSapling extends BlockBush implements IGrowable
 	{
 		super();
 		this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
+		this.setHardness(0.0F);
+		this.setSoundType(SoundType.PLANT);
 		this.setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -50,21 +53,21 @@ public class BlockRainbowSapling extends BlockBush implements IGrowable
 		}
 	}
 
-	public void grow(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void grow(World world, BlockPos pos, IBlockState state, Random rand)
 	{
 		if (((Integer)state.getValue(STAGE)).intValue() == 0)
 		{
-			worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
+			world.setBlockState(pos, state.cycleProperty(STAGE), 4);
 		}
 		else
 		{
-			this.generateTree(worldIn, pos, state, rand);
+			this.generateTree(world, pos, state, rand);
 		}
 	}
 
-	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void generateTree(World world, BlockPos pos, IBlockState state, Random rand)
 	{
-		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
+		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(world, rand, pos)) return;
 		WorldGenerator worldgenerator = (WorldGenerator)(rand.nextInt(ModConfiguration.largeTreeChance) == 0 ? new WorldGenLargeRainbowTree(true) : new WorldGenSmallRainbowTree(true));
 		int i = 0;
 		int j = 0;
@@ -74,28 +77,28 @@ public class BlockRainbowSapling extends BlockBush implements IGrowable
 
 		if (largeTree)
 		{
-			worldIn.setBlockState(pos.add(i, 0, j), air, 4);
-			worldIn.setBlockState(pos.add(i + 1, 0, j), air, 4);
-			worldIn.setBlockState(pos.add(i, 0, j + 1), air, 4);
-			worldIn.setBlockState(pos.add(i + 1, 0, j + 1), air, 4);
+			world.setBlockState(pos.add(i, 0, j), air, 4);
+			world.setBlockState(pos.add(i + 1, 0, j), air, 4);
+			world.setBlockState(pos.add(i, 0, j + 1), air, 4);
+			world.setBlockState(pos.add(i + 1, 0, j + 1), air, 4);
 		}
 		else
 		{
-			worldIn.setBlockState(pos, air, 4);
+			world.setBlockState(pos, air, 4);
 		}
 
-		if (!worldgenerator.generate(worldIn, rand, pos.add(i, 0, j)))
+		if (!worldgenerator.generate(world, rand, pos.add(i, 0, j)))
 		{
 			if (largeTree)
 			{
-				worldIn.setBlockState(pos.add(i, 0, j), state, 4);
-				worldIn.setBlockState(pos.add(i + 1, 0, j), state, 4);
-				worldIn.setBlockState(pos.add(i, 0, j + 1), state, 4);
-				worldIn.setBlockState(pos.add(i + 1, 0, j + 1), state, 4);
+				world.setBlockState(pos.add(i, 0, j), state, 4);
+				world.setBlockState(pos.add(i + 1, 0, j), state, 4);
+				world.setBlockState(pos.add(i, 0, j + 1), state, 4);
+				world.setBlockState(pos.add(i + 1, 0, j + 1), state, 4);
 			}
 			else
 			{
-				worldIn.setBlockState(pos, state, 4);
+				world.setBlockState(pos, state, 4);
 			}
 		}
 
@@ -108,21 +111,21 @@ public class BlockRainbowSapling extends BlockBush implements IGrowable
 	}
 
 	@Override
-	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
 	{
 		return true;
 	}
 
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
+	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		return (double)worldIn.rand.nextFloat() < 0.45D;
+		return (double)world.rand.nextFloat() < 0.45D;
 	}
 
 	@Override
-	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state)
 	{
-		this.grow(worldIn, pos, state, rand);
+		this.grow(world, pos, state, rand);
 	}
 
 	@SuppressWarnings("deprecation")
