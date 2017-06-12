@@ -4,8 +4,6 @@ import net.crazysnailboy.mods.rainboaks.common.config.ModConfiguration;
 import net.crazysnailboy.mods.rainboaks.init.ModBlocks;
 import net.crazysnailboy.mods.rainboaks.init.ModLootTables;
 import net.crazysnailboy.mods.rainboaks.world.gen.ModWorldGenerator;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy
@@ -43,7 +41,7 @@ public class CommonProxy
 
 	private void registerCraftingRecipes()
 	{
-		GameRegistry.addRecipe(new ItemStack(Blocks.PLANKS, 4, 0), new Object[] {"w", 'w', new ItemStack(ModBlocks.LOG, 1, 0)});
+		ModBlocks.registerCraftingRecipes();
 	}
 
 	private void registerLootTables()
