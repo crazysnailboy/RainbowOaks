@@ -1,5 +1,7 @@
 package net.crazysnailboy.mods.rainboaks;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import net.crazysnailboy.mods.rainboaks.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -9,7 +11,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = RainboaksMod.MODID, name = RainboaksMod.NAME, version = RainboaksMod.VERSION, updateJSON = RainboaksMod.UPDATEJSON)
+
+@Mod(modid = RainboaksMod.MODID, name = RainboaksMod.NAME, version = RainboaksMod.VERSION, updateJSON = RainboaksMod.UPDATEJSON, dependencies = "required-after:forge@[14.21.0.2324,);")
 public class RainboaksMod
 {
 
@@ -27,6 +30,8 @@ public class RainboaksMod
 
 	@SidedProxy(clientSide = CLIENT_PROXY_CLASS, serverSide = SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
+
+	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
 
 	@EventHandler

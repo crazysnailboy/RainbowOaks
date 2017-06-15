@@ -1,6 +1,6 @@
 package net.crazysnailboy.mods.rainboaks.init;
 
-import java.util.UUID;
+import net.crazysnailboy.mods.rainboaks.RainboaksMod;
 import net.crazysnailboy.mods.rainboaks.block.BlockRainbowLeaves;
 import net.crazysnailboy.mods.rainboaks.block.BlockRainbowLog;
 import net.crazysnailboy.mods.rainboaks.block.BlockRainbowSapling;
@@ -13,10 +13,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -66,7 +66,7 @@ public class ModBlocks
 
 	public static void registerCraftingRecipes()
 	{
-		addShapelessRecipe(new ItemStack(Blocks.PLANKS, 4, 0), new Object[] { new ItemStack(ModBlocks.LOG, 1, 0) });
+		addShapelessRecipe("oak_planks", new ItemStack(Blocks.PLANKS, 4, 0), new Object[] { new ItemStack(ModBlocks.LOG, 1, 0) });
 	}
 
 	private static void registerInventoryModel(Block block)
@@ -76,33 +76,40 @@ public class ModBlocks
 	}
 
 
-	private static void addShapelessRecipe(ItemStack stack, Object... recipeComponents)
+	private static void addShapelessRecipe(String name, ItemStack stack, Object... recipeComponents)
 	{
-		String name = UUID.randomUUID().toString();
-		NonNullList<Ingredient> list = NonNullList.create();
-
-		for (Object object : recipeComponents)
+		try
 		{
-			if (object instanceof ItemStack)
+			name = RainboaksMod.MODID + ":" + name;
+			NonNullList<Ingredient> list = NonNullList.create();
+
+			for (Object object : recipeComponents)
 			{
-				list.add(Ingredient.func_193369_a(((ItemStack)object).copy()));
-			}
-			else if (object instanceof Item)
-			{
-				list.add(Ingredient.func_193369_a(new ItemStack((Item)object)));
-			}
-			else
-			{
-				if (!(object instanceof Block))
+				if (object instanceof ItemStack)
 				{
-					throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + object.getClass().getName() + "!");
+					list.add(Ingredient.fromStacks(((ItemStack)object).copy()));
 				}
+				else if (object instanceof Item)
+				{
+					list.add(Ingredient.fromStacks(new ItemStack((Item)object)));
+				}
+				else
+				{
+					if (!(object instanceof Block))
+					{
+						throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + object.getClass().getName() + "!");
+					}
 
-				list.add(Ingredient.func_193369_a(new ItemStack((Block)object)));
+					list.add(Ingredient.fromStacks(new ItemStack((Block)object)));
+				}
 			}
-		}
 
-		CraftingManager.func_193379_a(name, new ShapelessRecipes(name, stack, list));
+			GameRegistry.register(new ShapelessRecipes(name, stack, list).setRegistryName(new ResourceLocation(name)));
+		}
+		catch (Exception ex)
+		{
+			RainboaksMod.LOGGER.catching(ex);
+		}
 	}
 
 }
