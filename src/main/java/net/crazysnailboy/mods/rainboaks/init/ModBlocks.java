@@ -17,7 +17,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ModBlocks
@@ -54,14 +54,14 @@ public class ModBlocks
 
 	private static void registerBlock(Block block)
 	{
-		GameRegistry.register(block);
-		GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+		ForgeRegistries.BLOCKS.register(block);
+		ForgeRegistries.ITEMS.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
 	private static void registerBlock(Block block, ItemBlock item)
 	{
-		GameRegistry.register(block);
-		GameRegistry.register(item.setRegistryName(block.getRegistryName()));
+		ForgeRegistries.BLOCKS.register(block);
+		ForgeRegistries.ITEMS.register(item.setRegistryName(block.getRegistryName()));
 	}
 
 	public static void registerCraftingRecipes()
@@ -104,7 +104,7 @@ public class ModBlocks
 				}
 			}
 
-			GameRegistry.register(new ShapelessRecipes(name, stack, list).setRegistryName(new ResourceLocation(name)));
+			ForgeRegistries.RECIPES.register(new ShapelessRecipes(name, stack, list).setRegistryName(new ResourceLocation(name)));
 		}
 		catch (Exception ex)
 		{

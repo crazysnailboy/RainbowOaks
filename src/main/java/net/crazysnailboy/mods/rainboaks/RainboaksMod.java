@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 
-@Mod(modid = RainboaksMod.MODID, name = RainboaksMod.NAME, version = RainboaksMod.VERSION, updateJSON = RainboaksMod.UPDATEJSON, dependencies = "required-after:forge@[14.21.0.2324,);")
+@Mod(modid = RainboaksMod.MODID, name = RainboaksMod.NAME, version = RainboaksMod.VERSION, updateJSON = RainboaksMod.UPDATEJSON, dependencies = "required-after:forge@[14.21.0.2363,);")
 public class RainboaksMod
 {
 
