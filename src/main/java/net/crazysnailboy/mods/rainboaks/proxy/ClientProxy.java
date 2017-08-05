@@ -1,7 +1,7 @@
 package net.crazysnailboy.mods.rainboaks.proxy;
 
 import net.crazysnailboy.mods.rainboaks.client.renderer.color.ModBlockColors;
-import net.crazysnailboy.mods.rainboaks.init.ModBlocks;
+
 
 public class ClientProxy extends CommonProxy
 {
@@ -16,7 +16,6 @@ public class ClientProxy extends CommonProxy
 	public void init()
 	{
 		super.init();
-		this.registerInventoryModels();
 		this.registerColorHandlers();
 	}
 
@@ -29,12 +28,7 @@ public class ClientProxy extends CommonProxy
 
 	private void registerColorHandlers()
 	{
-		ModBlockColors.registerColourHandlers();
-	}
-
-	private void registerInventoryModels()
-	{
-		ModBlocks.registerInventoryModels();
+		ModBlockColors.registerColorHandlers();
 	}
 
 }

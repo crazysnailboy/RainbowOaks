@@ -6,20 +6,19 @@ import net.crazysnailboy.mods.rainboaks.init.ModLootTables;
 import net.crazysnailboy.mods.rainboaks.world.gen.ModWorldGenerator;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+
 public class CommonProxy
 {
 
 	public void preInit()
 	{
 		this.initializeConfiguration();
-		this.registerBlocks();
 		this.registerLootTables();
 	}
 
 	public void init()
 	{
 		this.registerOreDictionaryEntries();
-		this.registerCraftingRecipes();
 		this.registerWorldGenerator();
 	}
 
@@ -28,20 +27,9 @@ public class CommonProxy
 	}
 
 
-
 	private void initializeConfiguration()
 	{
 		ModConfiguration.initializeConfiguration();
-	}
-
-	private void registerBlocks()
-	{
-		ModBlocks.registerBlocks();
-	}
-
-	private void registerCraftingRecipes()
-	{
-		ModBlocks.registerCraftingRecipes();
 	}
 
 	private void registerLootTables()
