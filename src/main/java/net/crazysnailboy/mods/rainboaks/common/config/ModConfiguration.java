@@ -2,27 +2,43 @@ package net.crazysnailboy.mods.rainboaks.common.config;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import net.crazysnailboy.mods.rainboaks.RainboaksMod;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Loader;
 
+
 public class ModConfiguration
 {
+
+	private static class DefaultValues
+	{
+		private static final int largeTreeChance = 7;
+
+		private static final boolean addToWorldGen = true;
+		private static final double treesPerChunk = 0.2D;
+		private static final String[] biomeList = new String[] { "minecraft:mutated_forest" };
+
+		private static final boolean addToLootTables = true;
+		private static final String[] lootTableList = new String[] { "minecraft:chests/simple_dungeon", "minecraft:chests/stronghold_library", "minecraft:chests/village_blacksmith", "minecraft:chests/desert_pyramid", "minecraft:chests/jungle_temple" };
+	}
+
+
 	private static Configuration config = null;
 
 	public static final String CATEGORY_WORLDGEN = "worldgen";
 	public static final String CATEGORY_LOOTTABLES = "loottables";
 
-	public static int largeTreeChance = 7;
+	public static int largeTreeChance = DefaultValues.largeTreeChance;
 
-	public static boolean addToWorldGen = true;
-	public static double treesPerChunk = 0.2D;
-	public static String[] biomeList = new String[] { "minecraft:mutated_forest" };
+	public static boolean addToWorldGen = DefaultValues.addToWorldGen;
+	public static double treesPerChunk = DefaultValues.treesPerChunk;
+	public static String[] biomeList = DefaultValues.biomeList;
 
-	public static boolean addToLootTables = true;
-	public static String[] lootTableList = new String[] { "minecraft:chests/simple_dungeon", "minecraft:chests/stronghold_library", "minecraft:chests/village_blacksmith", "minecraft:chests/desert_pyramid", "minecraft:chests/jungle_temple" };
+	public static boolean addToLootTables = DefaultValues.addToLootTables;
+	public static String[] lootTableList = DefaultValues.lootTableList;
 
 
 	public static void initializeConfiguration()
@@ -33,16 +49,17 @@ public class ModConfiguration
 
 
 		// get the configuration properties
-		Property propLargeTreeChance = config.get(Configuration.CATEGORY_GENERAL, "largeTreeChance", largeTreeChance, "Chance of getting a large tree from a sapling. The higher the number, the lower the probability.\nDefault is 7.");
+		config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, "");
+		Property propLargeTreeChance = config.get(Configuration.CATEGORY_GENERAL, "largeTreeChance", DefaultValues.largeTreeChance, "Chance of getting a large tree from a sapling. The higher the number, the lower the probability.\nDefault is " + DefaultValues.largeTreeChance + ".");
 
 		config.addCustomCategoryComment(CATEGORY_WORLDGEN, "See https://github.com/crazysnailboy/RainbowOaks/wiki/List-of-Vanilla-Biomes for a list of biome names");
-		Property propAddToWorldGen = config.get(CATEGORY_WORLDGEN, "addToWorldGen", addToWorldGen, "Should trees appear naturally in the world.\nDefault is true.");
-		Property propTreesPerChunk = config.get(CATEGORY_WORLDGEN, "treesPerChunk", treesPerChunk, "Number of trees per chunk.\nDefault is 0.2.");
-		Property propBiomeList = config.get(CATEGORY_WORLDGEN, "biomeList", biomeList, "List of biomes trees should generate in.\nDefault is \"minecraft:mutated_forest\" (Flower Forests).");
+		Property propAddToWorldGen = config.get(CATEGORY_WORLDGEN, "addToWorldGen", DefaultValues.addToWorldGen, "Should trees appear naturally in the world.\nDefault is " + DefaultValues.addToWorldGen + ".");
+		Property propTreesPerChunk = config.get(CATEGORY_WORLDGEN, "treesPerChunk", DefaultValues.treesPerChunk, "Number of trees per chunk.\nDefault is " + DefaultValues.treesPerChunk + ".");
+		Property propBiomeList = config.get(CATEGORY_WORLDGEN, "biomeList", DefaultValues.biomeList, "List of biomes trees should generate in.\nDefault is " + Arrays.toString(DefaultValues.biomeList) + ".");
 
 		config.addCustomCategoryComment(CATEGORY_LOOTTABLES, "See http://minecraft.gamepedia.com/Loot_table#List_of_loot_tables for a list of vanilla loot tables");
-		Property propAddToLootTables = config.get(CATEGORY_LOOTTABLES, "addToLootTables", addToLootTables, "Should saplings be added to loot tables.\nDefault is true.");
-		Property propLootTableList = config.get(CATEGORY_LOOTTABLES, "lootTableList", lootTableList, "List of loot tables to add saplings to.\nDefault is \"minecraft:chests/simple_dungeon\", \"minecraft:chests/stronghold_library\", \"minecraft:chests/village_blacksmith\", \"minecraft:chests/desert_pyramid\", \"minecraft:chests/jungle_temple\"");
+		Property propAddToLootTables = config.get(CATEGORY_LOOTTABLES, "addToLootTables", DefaultValues.addToLootTables, "Should saplings be added to loot tables.\nDefault is " + DefaultValues.addToLootTables + ".");
+		Property propLootTableList = config.get(CATEGORY_LOOTTABLES, "lootTableList", DefaultValues.lootTableList, "List of loot tables to add saplings to.\nDefault is " + Arrays.toString(DefaultValues.lootTableList) + ".");
 
 
 		// set the category property order
@@ -76,6 +93,5 @@ public class ModConfiguration
 		// save the configuration to the file
 		if (config.hasChanged()) config.save();
 	}
-
 
 }
