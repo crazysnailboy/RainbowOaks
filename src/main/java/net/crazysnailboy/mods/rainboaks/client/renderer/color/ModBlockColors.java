@@ -16,12 +16,15 @@ import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 @SideOnly(Side.CLIENT)
 public class ModBlockColors
 {
+
 	private static final Minecraft minecraft = Minecraft.getMinecraft();
 
-	public static void registerColourHandlers()
+
+	public static void registerColorHandlers()
 	{
 		final BlockColors blockColors = minecraft.getBlockColors();
 		final ItemColors itemColors = minecraft.getItemColors();
@@ -57,9 +60,9 @@ public class ModBlockColors
 	{
 
 		@Override
-		public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex)
+		public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex)
 		{
-			if (worldIn != null && pos != null)
+			if (world != null && pos != null)
 			{
 				int red = 0;
 				int green = 0;
@@ -69,7 +72,7 @@ public class ModBlockColors
 				{
 					for (int var10 = -1; var10 <= 1; ++var10)
 					{
-						int var11 = BiomeColorHelper.getFoliageColorAtPos(worldIn, pos);
+						int var11 = BiomeColorHelper.getFoliageColorAtPos(world, pos);
 						red += (var11 & 16711680) >> 16;
 						green += (var11 & 65280) >> 8;
 						blue += var11 & 255;
@@ -105,6 +108,5 @@ public class ModBlockColors
 		}
 
 	}
-
 
 }
