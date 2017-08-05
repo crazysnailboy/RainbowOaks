@@ -16,12 +16,15 @@ import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 @SideOnly(Side.CLIENT)
 public class ModBlockColors
 {
+
 	private static final Minecraft minecraft = Minecraft.getMinecraft();
 
-	public static void registerColourHandlers()
+
+	public static void registerColorHandlers()
 	{
 		final BlockColors blockColors = minecraft.getBlockColors();
 		final ItemColors itemColors = minecraft.getItemColors();
@@ -105,6 +108,5 @@ public class ModBlockColors
 		}
 
 	}
-
 
 }

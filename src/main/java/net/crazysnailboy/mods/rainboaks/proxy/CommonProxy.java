@@ -8,13 +8,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+
 public class CommonProxy
 {
 
 	public void preInit()
 	{
 		this.initializeConfiguration();
-		this.registerBlocks();
 		this.registerLootTables();
 	}
 
@@ -30,20 +30,14 @@ public class CommonProxy
 	}
 
 
-
 	private void initializeConfiguration()
 	{
 		ModConfiguration.initializeConfiguration();
 	}
 
-	private void registerBlocks()
-	{
-		ModBlocks.registerBlocks();
-	}
-
 	private void registerCraftingRecipes()
 	{
-		GameRegistry.addRecipe(new ItemStack(Blocks.PLANKS, 4, 0), new Object[] {"w", 'w', new ItemStack(ModBlocks.LOG, 1, 0)});
+		GameRegistry.addRecipe(new ItemStack(Blocks.PLANKS, 4, 0), new Object[] { "w", 'w', new ItemStack(ModBlocks.LOG, 1, 0) });
 	}
 
 	private void registerLootTables()
